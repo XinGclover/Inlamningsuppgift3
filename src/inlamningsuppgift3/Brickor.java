@@ -19,7 +19,7 @@ public class Brickor extends JFrame {
    JLabel[] labArray = new JLabel[16]; 
    Icon tomma= new ImageIcon("src/numberpictures/0.jpg");
    JLabel tom=new JLabel(tomma);
-   boolean win=false;
+ 
 
    
    Brickor(){
@@ -37,8 +37,6 @@ public class Brickor extends JFrame {
             p.add(labArray[i]);
             labArray[i].addMouseListener(musLyss);
        }
-       if(win==true)
-           System.out.println(ifWin());
        
        this.add(p,CENTER);
        this.add(nspel,SOUTH);
@@ -73,6 +71,31 @@ public class Brickor extends JFrame {
             }             
     }
     
+    public void tommaFlytta(){
+        int index=sokTomma();
+        JLabel temp= new JLabel();
+        if(!(index%4==3)){
+            temp.setIcon(labArray[index].getIcon());
+            labArray[index].setIcon(labArray[index+1].getIcon());
+            labArray[index+1].setIcon(temp.getIcon());           
+        }
+        if(!(index%4==0)){
+            temp.setIcon(labArray[index].getIcon());
+            labArray[index].setIcon(labArray[index-1].getIcon());
+            labArray[index-1].setIcon(temp.getIcon());        
+        }
+        if(index>3){
+            temp.setIcon(labArray[index].getIcon());
+            labArray[index].setIcon(labArray[index-4].getIcon());
+            labArray[index-4].setIcon(temp.getIcon());        
+        }
+        if(index<12){
+            temp.setIcon(labArray[index].getIcon());
+            labArray[index].setIcon(labArray[index+4].getIcon());
+            labArray[index+4].setIcon(temp.getIcon());        
+        }
+    }
+    
     public int sokTomma(){
             for(int i=0;i<16;i++){
                 if(labArray[i].getIcon().toString().equals(tomma.toString()))     
@@ -93,14 +116,13 @@ public class Brickor extends JFrame {
         }        
     }
      
-    public String ifWin(){
+    public boolean ifWin(){
         for(int i=0;i<16;i++){
-            if(labArray[i].getIcon().toString().equals("src/numberpictures/"+i+".jpg")) {
-                win=true;
-                return ("You win!");
+            if(!(labArray[i].getIcon().toString().equals("src/numberpictures/"+i+".jpg"))){
+                return false;
             }
         }
-       return null;
+       return true;
     }
     
     
@@ -112,11 +134,9 @@ public class Brickor extends JFrame {
             for(int i=0;i<16;i++){
                 if(e.getComponent()==labArray[i]){
                 bytaIcon(i);
-//              temp.setIcon(labArray[i].getIcon());
-//               labArray[i].setIcon(labArray[i+1].getIcon());
-//               labArray[i+1].setIcon(temp.getIcon());
-//               labArray[1].setIcon(labArray[3].getIcon());                 
-                }
+                if(ifWin())
+                    JOptionPane.showMessageDialog(null, "You Win!");   
+                } 
             }
          }
     };

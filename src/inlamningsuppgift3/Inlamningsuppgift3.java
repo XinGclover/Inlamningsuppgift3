@@ -11,7 +11,11 @@ public class Inlamningsuppgift3 {
   
     public static void main(String[] args) {
         Brickor b= new Brickor();
-        b.blandaBrickorsImage();
+        System.out.println(b.ifWin());
+        for(int i=0;i<=500;i++){
+            b.tommaFlytta();
+        }
+//        b.blandaBrickorsImage();
 //        int t=b.sokTomma();
 //        b.bytIcon(t);
 //        int t=b.blandaBrickorsImage();
