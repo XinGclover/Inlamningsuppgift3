@@ -27,8 +27,11 @@ public class Brickor extends JFrame {
        nspel.setFont(fnt);
        nspel.setBackground(Color.DARK_GRAY);
        nspel.setBorderPainted(true);
+       
        nspel.addActionListener(l->{
-          blandaBrickorsImage();
+          for(int i=0;i<500;i++){
+              tommaFlytta();
+          }
        });
        
        for(int i=0;i<16;i++){
@@ -40,7 +43,7 @@ public class Brickor extends JFrame {
        
        this.add(p,CENTER);
        this.add(nspel,SOUTH);
-//       pack();
+       pack();
        this.setSize(400,480);
        this.setVisible(true);
        this.setBackground(Color.white);
@@ -49,47 +52,27 @@ public class Brickor extends JFrame {
        
    }
    
-    public void addLabel(){
-        for(int i=0;i<16;i++){               
-                String picpath="src/numberpictures/"+i+".jpg";         
-                labArray[i]= new JLabel(new ImageIcon(picpath),JLabel.CENTER);
-                p.add(labArray[i]);
-       }    
-   }
-    
-    public void blandaBrickorsImage(){
-        JLabel temp= new JLabel();            
-        for(int i=0;i<16;i++){
-            int rand= (int)(Math.random()*16);
-            if(rand==i)
-                continue;
-            else{
-                temp.setIcon(labArray[i].getIcon());
-                labArray[i].setIcon(labArray[rand].getIcon());
-                labArray[rand].setIcon(temp.getIcon());               
-                }             
-            }             
-    }
-    
     public void tommaFlytta(){
-        int index=sokTomma();
+        int index=sokTomma();           
+        int rand= (int)(Math.random()*4);//Anger en opetations namn
+
         JLabel temp= new JLabel();
-        if(!(index%4==3)){
+        if(!(index%4==3) && rand==0){
             temp.setIcon(labArray[index].getIcon());
             labArray[index].setIcon(labArray[index+1].getIcon());
             labArray[index+1].setIcon(temp.getIcon());           
         }
-        if(!(index%4==0)){
+        if(!(index%4==0) && rand==1){
             temp.setIcon(labArray[index].getIcon());
             labArray[index].setIcon(labArray[index-1].getIcon());
             labArray[index-1].setIcon(temp.getIcon());        
         }
-        if(index>3){
+        if(index>3 && rand==2){
             temp.setIcon(labArray[index].getIcon());
             labArray[index].setIcon(labArray[index-4].getIcon());
             labArray[index-4].setIcon(temp.getIcon());        
         }
-        if(index<12){
+        if(index<12 && rand==3){
             temp.setIcon(labArray[index].getIcon());
             labArray[index].setIcon(labArray[index+4].getIcon());
             labArray[index+4].setIcon(temp.getIcon());        
