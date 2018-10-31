@@ -1,0 +1,12 @@
+
+
+.root{
+     -fx-background-color:lightsalmon;
+}
+
+
+.button{
+    -fx-font-size:40px;
+    -fx-text-fill:darkslateblue; 
+    -fx-font-family: "Comic Sans MS";
+}

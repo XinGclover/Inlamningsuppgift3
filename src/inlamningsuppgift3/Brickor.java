@@ -8,7 +8,6 @@ import java.awt.*;
 import static java.awt.BorderLayout.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import static java.security.AccessController.getContext;
 import javax.swing.*;
 
 
@@ -111,9 +110,7 @@ public class Brickor extends JFrame {
     
     MouseAdapter musLyss= new MouseAdapter(){
         @Override
-         public void mouseClicked(MouseEvent e){
-            JLabel temp = new JLabel(new ImageIcon());
-            
+         public void mouseClicked(MouseEvent e){         
             for(int i=0;i<16;i++){
                 if(e.getComponent()==labArray[i]){
                 bytaIcon(i);
