@@ -30,6 +30,8 @@ public class NewFXMain extends Application {
         Button nspel = new Button("Nytt Spel");
         nspel.setMinSize(80,10);
         nspel.setPadding(new Insets(10,30,20,30));
+        nspel.setLayoutX(60);
+        nspel.setLayoutY(20);
         nspel.setId("newgame");
      
         nspel.setOnAction((ActionEvent event) -> {
@@ -39,8 +41,8 @@ public class NewFXMain extends Application {
         });
         
         GridPane grid= new GridPane();
-        grid.setHgap(1);
-        grid.setVgap(1);
+        grid.setHgap(3);
+        grid.setVgap(3);
         grid.setAlignment(Pos.TOP_CENTER);
         grid.setPadding(new Insets(25, 25, 25, 25));
        
