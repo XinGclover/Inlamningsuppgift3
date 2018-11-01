@@ -67,25 +67,25 @@ public class Brickor extends JFrame {
         int index=sokTomma();           
         int rand= (int)(Math.random()*4);//Anger en opetations namn
        
-        if(!(index%n==n-1) && rand==0){
+        if(!(index%n==n-1) && rand==0){ //tomma befinner sig inte på högerst
             temp.setText(labArray[index].getText());
             labArray[index].setText(labArray[index+1].getText());
-            labArray[index+1].setText(temp.getText());           
+            labArray[index+1].setText(temp.getText());  //tomma kan flytta till höger         
         }
-        if(!(index%n==0) && rand==1){
+        if(!(index%n==0) && rand==1){ //tomma befinner sig inte på vänstest
             temp.setText(labArray[index].getText());
             labArray[index].setText(labArray[index-1].getText());
-            labArray[index-1].setText(temp.getText());        
+            labArray[index-1].setText(temp.getText());    // tomma kan flytta till vänst  
         }
-        if(index> n-1&& rand==2){
+        if(index> n-1&& rand==2){  //tomma befinner sig inte på första rad
             temp.setText(labArray[index].getText());
             labArray[index].setText(labArray[index-n].getText());
-            labArray[index-n].setText(temp.getText());        
+            labArray[index-n].setText(temp.getText());    // tomma kan flytta upp    
         }
-        if(index<(n-1)*n && rand==3){
+        if(index<(n-1)*n && rand==3){ //tomma befinner sig int på sista rad
             temp.setText(labArray[index].getText());
             labArray[index].setText(labArray[index+n].getText());
-            labArray[index+n].setText(temp.getText());        
+            labArray[index+n].setText(temp.getText());  // tomma kan flytta ner      
         }
     }
     
@@ -102,7 +102,7 @@ public class Brickor extends JFrame {
   
         if(((i==index-1) && !(index%n==0)) // Klicka label finns vänst vid tomma
          ||((i==index+1) && !(index%n==n-1)) // höger vid tomma
-         ||(i==index+n) || (i==index-n)  ){ // ner och uppe vid tomma
+         ||(i==index+n) || (i==index-n)  ){ // ner eller uppe vid tomma
             temp.setText(labArray[i].getText());
             labArray[i].setText(labArray[index].getText());
             labArray[index].setText(temp.getText());       
