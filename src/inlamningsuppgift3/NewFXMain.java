@@ -12,9 +12,9 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  *
@@ -23,9 +23,10 @@ import javafx.stage.Stage;
 public class NewFXMain extends Application {
     Button[] butArray= new Button[16];
     
+    
     @Override
     public void start(Stage stage) {
-        
+           
         Button nspel = new Button("Nytt Spel");
         nspel.setMinSize(80,10);
         nspel.setPadding(new Insets(10,30,20,30));
@@ -63,22 +64,24 @@ public class NewFXMain extends Application {
         root.setSpacing(20);
        
         Scene scene = new Scene(root);
-        
+        stage.addEventFilter(WindowEvent.WINDOW_SHOWN, (WindowEvent event) -> {
+            for(int i=0;i<500;i++){
+                tommaFlytta();
+            }
+        });
         stage.setScene(scene);
         stage.setTitle("Brickor Spel");
         scene.getStylesheets().add(NewFXMain.class.getResource("Styling.css").toExternalForm());
         stage.show();
     }
 
-    /**
-     * @param args the command line arguments
-     */
+    
     public static void main(String[] args) {
-        launch(args);
+        launch(args);            
     }
     
     public void tommaFlytta(){
-        int index=sokTomma();           
+        int index=sokTomma();         
         int rand= (int)(Math.random()*4);//Anger en opetations namn
         
         Button temp= new Button();
@@ -106,14 +109,14 @@ public class NewFXMain extends Application {
     
     public int sokTomma(){
             for(int i=0;i<16;i++){
-                if(butArray[i].getText().equals(""))     
+                if("".equals(butArray[i].getText()))     
                  return i; 
                 }
        return 0;         
     }
     
     public void bytaIcon(int i){
-        int index=sokTomma();
+        int index=sokTomma(); 
         Button temp = new Button();
         if(((i==index-1)&&!(index%4==0)) // Klicka label finns vänst vid tomma
          ||((i==index+1)&&!(index%4==3)) // höger vid tomma
@@ -140,8 +143,7 @@ public class NewFXMain extends Application {
                 if(event.getSource().equals(butArray[i])){
                 bytaIcon(i);
                 if(ifWin())
-                  System.out.println("You Win!!");
-                    
+                  System.out.println("You Win!!");                   
                 } 
             } 
         }
