@@ -16,11 +16,13 @@ public class Brickor extends JFrame {
    JButton nspel= new JButton("Nytt Spel");
    Font fntB= new Font("Serief",Font.BOLD,30);
    Font fntL=new Font("Comic Sans MS",Font.BOLD,40);
-   JLabel[] labArray = new JLabel[16]; 
-   
+   Dimension dim= new Dimension();
+   static int n;
+   JLabel[] labArray = new JLabel[n*n]; 
+    
    Brickor(){
-       
-       p.setLayout(new GridLayout(4,4));
+       if(n>=2)
+           p.setLayout(new GridLayout(n,n,2,2));
        nspel.setFont(fntB);
        nspel.setForeground(Color.gray);
        nspel.setOpaque(true);
@@ -32,14 +34,16 @@ public class Brickor extends JFrame {
               tommaFlytta();
           }
        });
-       for(int i=0;i<16;i++){  
+       
+       for(int i=0;i<n*n;i++){  
            if(i==0){
              labArray[0]=new JLabel("",JLabel.CENTER);
            }
            else{
             labArray[i]= new JLabel(String.valueOf(i),JLabel.CENTER);
            }
-            labArray[i].setSize(20, 20);
+            dim.setSize(80, 80);
+            labArray[i].setPreferredSize(dim);            
             labArray[i].setFont(fntL);
             labArray[i].setOpaque(true);
             labArray[i].setBackground(Color.getHSBColor(30, 50, 20));
@@ -52,9 +56,7 @@ public class Brickor extends JFrame {
        this.add(p,CENTER);
        this.add(nspel,SOUTH);
        pack();
-       this.setSize(400,480);
        this.setVisible(true);
-       this.setBackground(Color.white);
        this.setLocation(300,200);
        setDefaultCloseOperation(EXIT_ON_CLOSE);
        
@@ -65,30 +67,30 @@ public class Brickor extends JFrame {
         int rand= (int)(Math.random()*4);//Anger en opetations namn
 
         JLabel temp= new JLabel();
-        if(!(index%4==3) && rand==0){
+        if(!(index%n==n-1) && rand==0){
             temp.setText(labArray[index].getText());
             labArray[index].setText(labArray[index+1].getText());
             labArray[index+1].setText(temp.getText());           
         }
-        if(!(index%4==0) && rand==1){
+        if(!(index%n==0) && rand==1){
             temp.setText(labArray[index].getText());
             labArray[index].setText(labArray[index-1].getText());
             labArray[index-1].setText(temp.getText());        
         }
-        if(index>3 && rand==2){
+        if(index> n-1&& rand==2){
             temp.setText(labArray[index].getText());
-            labArray[index].setText(labArray[index-4].getText());
-            labArray[index-4].setText(temp.getText());        
+            labArray[index].setText(labArray[index-n].getText());
+            labArray[index-n].setText(temp.getText());        
         }
-        if(index<12 && rand==3){
+        if(index<(n-1)*n && rand==3){
             temp.setText(labArray[index].getText());
-            labArray[index].setText(labArray[index+4].getText());
-            labArray[index+4].setText(temp.getText());        
+            labArray[index].setText(labArray[index+n].getText());
+            labArray[index+n].setText(temp.getText());        
         }
     }
     
     public int sokTomma(){
-            for(int i=0;i<16;i++){
+            for(int i=0;i<n*n;i++){
                 if("".equals(labArray[i].getText().trim()))     
                  return i; 
                 }
@@ -98,9 +100,9 @@ public class Brickor extends JFrame {
     public void bytaIcon(int i){
         int index=sokTomma();
         JLabel temp = new JLabel(new ImageIcon());
-        if(((i==index-1)&&!(index%4==0)) // Klicka label finns vänst vid tomma
-         ||((i==index+1)&&!(index%4==3)) // höger vid tomma
-         ||(i==index+4)||(i==index-4)  ){ // ner och uppe vid tomma
+        if(((i==index-1) && !(index%n==0)) // Klicka label finns vänst vid tomma
+         ||((i==index+1) && !(index%n==n-1)) // höger vid tomma
+         ||(i==index+n) || (i==index-n)  ){ // ner och uppe vid tomma
             temp.setText(labArray[i].getText());
             labArray[i].setText(labArray[index].getText());
             labArray[index].setText(temp.getText());       
@@ -108,7 +110,7 @@ public class Brickor extends JFrame {
     }
      
     public boolean ifWin(){
-        for(int i=1;i<16;i++){
+        for(int i=1;i<n*n;i++){
             if(!(labArray[i].getText().equals(Integer.toString(i)))){
                 return false;
             }
@@ -120,7 +122,7 @@ public class Brickor extends JFrame {
     MouseAdapter musLyss= new MouseAdapter(){
         @Override
          public void mouseClicked(MouseEvent e){         
-            for(int i=0;i<16;i++){
+            for(int i=0;i<n*n;i++){
                 if(e.getComponent()==labArray[i]){
                 bytaIcon(i);
                 if(ifWin())
@@ -129,5 +131,10 @@ public class Brickor extends JFrame {
             }
          }
     };
-
+     
+    public static int getStolek(){
+        String s=JOptionPane.showInputDialog(null,"Hur många rader spelet ska ha? (>=2)");
+        n=Integer.parseInt(s);
+        return n;
+    }
 }
