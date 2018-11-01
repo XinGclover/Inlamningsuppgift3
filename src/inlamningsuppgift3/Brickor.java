@@ -14,29 +14,38 @@ import javax.swing.*;
 public class Brickor extends JFrame {
    JPanel p= new JPanel();
    JButton nspel= new JButton("Nytt Spel");
-   Font fnt= new Font("Serief",Font.BOLD,30);
+   Font fntB= new Font("Serief",Font.BOLD,30);
+   Font fntL=new Font("Comic Sans MS",Font.BOLD,40);
    JLabel[] labArray = new JLabel[16]; 
-   Icon tomma= new ImageIcon("src/numberpictures/0.jpg");
-   JLabel tom=new JLabel(tomma);
- 
-
    
    Brickor(){
+       
        p.setLayout(new GridLayout(4,4));
-       nspel.setFont(fnt);
-       nspel.setBackground(Color.DARK_GRAY);
-       nspel.setBorderPainted(true);
+       nspel.setFont(fntB);
+       nspel.setForeground(Color.gray);
+       nspel.setOpaque(true);
+       nspel.setBackground(Color.pink);
+       nspel.setBorderPainted(false);
        
        nspel.addActionListener(l->{
           for(int i=0;i<500;i++){
               tommaFlytta();
           }
        });
-       
-       for(int i=0;i<16;i++){
-            String picpath="src/numberpictures/"+i+".jpg";         
-            labArray[i]= new JLabel(new ImageIcon(picpath),JLabel.CENTER);
-            p.add(labArray[i]);
+       for(int i=0;i<16;i++){  
+           if(i==0){
+             labArray[0]=new JLabel("",JLabel.CENTER);
+           }
+           else{
+            labArray[i]= new JLabel(String.valueOf(i),JLabel.CENTER);
+           }
+            labArray[i].setSize(20, 20);
+            labArray[i].setFont(fntL);
+            labArray[i].setOpaque(true);
+            labArray[i].setBackground(Color.getHSBColor(30, 50, 20));
+            labArray[i].setForeground(Color.pink);
+            labArray[i].setBorder(BorderFactory.createRaisedBevelBorder());
+            p.add(labArray[i],CENTER);
             labArray[i].addMouseListener(musLyss);
        }
        
@@ -57,30 +66,30 @@ public class Brickor extends JFrame {
 
         JLabel temp= new JLabel();
         if(!(index%4==3) && rand==0){
-            temp.setIcon(labArray[index].getIcon());
-            labArray[index].setIcon(labArray[index+1].getIcon());
-            labArray[index+1].setIcon(temp.getIcon());           
+            temp.setText(labArray[index].getText());
+            labArray[index].setText(labArray[index+1].getText());
+            labArray[index+1].setText(temp.getText());           
         }
         if(!(index%4==0) && rand==1){
-            temp.setIcon(labArray[index].getIcon());
-            labArray[index].setIcon(labArray[index-1].getIcon());
-            labArray[index-1].setIcon(temp.getIcon());        
+            temp.setText(labArray[index].getText());
+            labArray[index].setText(labArray[index-1].getText());
+            labArray[index-1].setText(temp.getText());        
         }
         if(index>3 && rand==2){
-            temp.setIcon(labArray[index].getIcon());
-            labArray[index].setIcon(labArray[index-4].getIcon());
-            labArray[index-4].setIcon(temp.getIcon());        
+            temp.setText(labArray[index].getText());
+            labArray[index].setText(labArray[index-4].getText());
+            labArray[index-4].setText(temp.getText());        
         }
         if(index<12 && rand==3){
-            temp.setIcon(labArray[index].getIcon());
-            labArray[index].setIcon(labArray[index+4].getIcon());
-            labArray[index+4].setIcon(temp.getIcon());        
+            temp.setText(labArray[index].getText());
+            labArray[index].setText(labArray[index+4].getText());
+            labArray[index+4].setText(temp.getText());        
         }
     }
     
     public int sokTomma(){
             for(int i=0;i<16;i++){
-                if(labArray[i].getIcon().toString().equals(tomma.toString()))     
+                if("".equals(labArray[i].getText().trim()))     
                  return i; 
                 }
        return 0;         
@@ -92,15 +101,15 @@ public class Brickor extends JFrame {
         if(((i==index-1)&&!(index%4==0)) // Klicka label finns vänst vid tomma
          ||((i==index+1)&&!(index%4==3)) // höger vid tomma
          ||(i==index+4)||(i==index-4)  ){ // ner och uppe vid tomma
-            temp.setIcon(labArray[i].getIcon());
-            labArray[i].setIcon(labArray[index].getIcon());
-            labArray[index].setIcon(temp.getIcon());       
+            temp.setText(labArray[i].getText());
+            labArray[i].setText(labArray[index].getText());
+            labArray[index].setText(temp.getText());       
         }        
     }
      
     public boolean ifWin(){
-        for(int i=0;i<16;i++){
-            if(!(labArray[i].getIcon().toString().equals("src/numberpictures/"+i+".jpg"))){
+        for(int i=1;i<16;i++){
+            if(!(labArray[i].getText().equals(Integer.toString(i)))){
                 return false;
             }
         }

@@ -11,9 +11,9 @@ public class Inlamningsuppgift3 {
   
     public static void main(String[] args) {
         Brickor b= new Brickor();
-        for(int i=0;i<=500;i++){
+        for(int i=0;i<=9;i++){
             b.tommaFlytta();
-        }      
+        }  
     }
 
 }
