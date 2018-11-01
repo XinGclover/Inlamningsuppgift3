@@ -19,6 +19,7 @@ public class Brickor extends JFrame {
    Dimension dim= new Dimension();
    static int n;
    JLabel[] labArray = new JLabel[n*n]; 
+   JLabel temp= new JLabel();
     
    Brickor(){
        if(n>=2)
@@ -65,8 +66,7 @@ public class Brickor extends JFrame {
     public void tommaFlytta(){
         int index=sokTomma();           
         int rand= (int)(Math.random()*4);//Anger en opetations namn
-
-        JLabel temp= new JLabel();
+       
         if(!(index%n==n-1) && rand==0){
             temp.setText(labArray[index].getText());
             labArray[index].setText(labArray[index+1].getText());
@@ -97,9 +97,9 @@ public class Brickor extends JFrame {
        return 0;         
     }
     
-    public void bytaIcon(int i){
+    public void bytaText(int i){
         int index=sokTomma();
-        JLabel temp = new JLabel(new ImageIcon());
+  
         if(((i==index-1) && !(index%n==0)) // Klicka label finns vänst vid tomma
          ||((i==index+1) && !(index%n==n-1)) // höger vid tomma
          ||(i==index+n) || (i==index-n)  ){ // ner och uppe vid tomma
@@ -108,7 +108,7 @@ public class Brickor extends JFrame {
             labArray[index].setText(temp.getText());       
         }        
     }
-     
+        
     public boolean ifWin(){
         for(int i=1;i<n*n;i++){
             if(!(labArray[i].getText().equals(Integer.toString(i)))){
@@ -124,14 +124,14 @@ public class Brickor extends JFrame {
          public void mouseClicked(MouseEvent e){         
             for(int i=0;i<n*n;i++){
                 if(e.getComponent()==labArray[i]){
-                bytaIcon(i);
+                bytaText(i);
                 if(ifWin())
                     JOptionPane.showMessageDialog(null, "You Win!");   
                 } 
             }
          }
     };
-     
+
     public static int getStolek(){
         String s=JOptionPane.showInputDialog(null,"Hur många rader spelet ska ha? (>=2)");
         n=Integer.parseInt(s);

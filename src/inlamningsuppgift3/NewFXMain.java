@@ -67,7 +67,7 @@ public class NewFXMain extends Application {
        
         Scene scene = new Scene(root);
         stage.addEventFilter(WindowEvent.WINDOW_SHOWN, (WindowEvent event) -> {
-            for(int i=0;i<500;i++){
+            for(int i=0;i<5;i++){
                 tommaFlytta();
             }
         });
